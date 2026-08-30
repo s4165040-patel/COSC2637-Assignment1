@@ -15,6 +15,7 @@ echo "Running Hadoop Streaming job..."
 
 hadoop jar "$STREAMING_JAR" \
     -D mapreduce.job.reduces=3 \
+    -D stream.num.map.output.key.fields=2 \
     -input "$INPUT" \
     -output "$OUTPUT" \
     -mapper "python3 task1_mapper.py" \
