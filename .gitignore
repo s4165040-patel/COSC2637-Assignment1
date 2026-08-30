@@ -1,0 +1,5 @@
+﻿Trips.txt
+Taxis.txt
+*.pdf
+*.docx
+__pycache__/
