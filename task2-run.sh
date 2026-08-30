@@ -110,7 +110,7 @@ hdfs dfs -mkdir -p "$OUTPUT"
 
 hdfs dfs -cat "/tmp/task2_iter_$LAST_ITER"/part-* | \
     sort -n | \
-    awk -F '\t' '{print $2, $3, $4, $5}' | \
+    awk -F '\t' 'BEGIN{OFS="\t"} {print $2, $3, $4, $5}' | \
     hdfs dfs -put - "$OUTPUT/part-00000"
 
 echo ""
