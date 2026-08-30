@@ -19,7 +19,8 @@ hadoop jar "$STREAMING_JAR" \
     -output "$OUTPUT" \
     -mapper "python3 task1_mapper.py" \
     -reducer "python3 task1_reducer.py" \
-    -files task1_mapper.py,task1_reducer.py
+    -file task1_mapper.py \
+    -file task1_reducer.py
 
 echo "Task 1 finished."
 
