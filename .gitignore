@@ -3,3 +3,4 @@ Taxis.txt
 *.pdf
 *.docx
 __pycache__/
+*.pem
