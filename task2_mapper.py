@@ -4,18 +4,24 @@ import sys
 import math
 
 
-def read_initialization():
-    with open("initialization.txt", "r") as file:
-        lines = [line.strip() for line in file if line.strip()]
-
-    max_iterations = int(lines[0])
-
+def read_medoids(filename):
     medoids = []
-    for line in lines[1:]:
-        x, y = line.split()
-        medoids.append((float(x), float(y)))
 
-    return max_iterations, medoids
+    with open(filename, "r") as file:
+        for line in file:
+            line = line.strip()
+
+            if not line:
+                continue
+
+            parts = line.split()
+
+            if len(parts) != 2:
+                continue
+
+            medoids.append((float(parts[0]), float(parts[1])))
+
+    return medoids
 
 
 def distance(point, medoid):
@@ -24,7 +30,16 @@ def distance(point, medoid):
     return math.sqrt(dx * dx + dy * dy)
 
 
-max_iterations, medoids = read_initialization()
+if len(sys.argv) != 2:
+    sys.stderr.write("Usage: task2_mapper.py medoids_file\n")
+    sys.exit(1)
+
+medoids = read_medoids(sys.argv[1])
+
+if not medoids:
+    sys.stderr.write("ERROR: No medoids found\n")
+    sys.exit(1)
+
 
 for line in sys.stdin:
     line = line.strip()
@@ -48,11 +63,11 @@ for line in sys.stdin:
     closest = 0
     closest_distance = distance(point, medoids[0])
 
-    for index in range(1, len(medoids)):
-        current_distance = distance(point, medoids[index])
+    for i in range(1, len(medoids)):
+        current_distance = distance(point, medoids[i])
 
         if current_distance < closest_distance:
-            closest = index
+            closest = i
             closest_distance = current_distance
 
     print(
